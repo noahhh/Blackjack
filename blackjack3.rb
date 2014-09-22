@@ -1,64 +1,129 @@
-class Game
-  #rules?
-      #blackjack, hit, stand, bet, etc.?
+class Deck
+  attr_accessor :deck_s
+
+  def initialize
+    build
+  end
+  def build
+    deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+    suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+    @deck_s = (deck.product(suits)).shuffle # product makes every possible combination
+  end
 end
 
 class Player
-  #has hand of cards
-  #calculate value of cards
-  #make choices depending on values
+  attr_accessor :first_card, :second_card, :p_hand, :hand_value
+  def initialize (deck_s)
+    @deck = deck_s
+  end
+
+  def hand1
+    @p_hand = []
+    2.times do
+      @p_hand << @deck.pop
+    end
+
+  def hand_total # calculates hand total and lets user know
+    @first_card = @p_hand[0]
+    @second_card = @p_hand[1]
+    puts "Your first card is #{@first_card[0]} of #{@first_card[1]}"
+    puts "Your second card is #{@second_card[0]} of #{@second_card[1]}"
+    @hand_value = @first_card[0] + @second_card[0]
+    puts "Your hand has a total of #{@hand_value}"
+  end
+
+  def hit_or_stay
+      puts "Would you like to (h)it or (s)tay?"
+      answer = gets.chomp
+  if answer == "h".downcase
+        @hand_value += @first_card[0]
+            puts "You got a(n) #{@first_card[0]} of #{@first_card[1]}"
+            puts "You now have #{@hand_value}"
+  elsif answer == "s".downcase
+         puts "You're staying with #{@hand_value}"
+            # exit
+  end
+  until answer == "s".downcase do
+    hit_or_stay
+  break
+      end
+    end
+  end
 end
 
 class Dealer
-  #deals cards
-  #has hand of cards
-end
+  attr_accessor :dfirst_card, :dsecond_card, :d_hand, :dhand_value
+  def initialize (deck_s)
+    @deck = deck_s
+  end
 
-# class Deck
-#   attr_reader :deck_v
-# def  initialize(deck_v)
-#   @deck_v = { OneHearts: 1, TwoHearts: 2, ThreeHearts: 3, FourHearts: 4, FiveHearts: 5, SixHearts: 6, SevenHearts: 7,
-#              EightHearts: 8, NineHearts: 9, TenHearts: 10, AceHearts: 11, JHearts: 10, QHearts: 10, KHearts: 10,
-#              OneDiamonds: 1, TwoDiamonds: 2, ThreeDiamonds: 3, FourDiamonds: 4, FiveDiamonds: 5, SixDiamonds: 6, SevenDiamonds: 7,
-#              EightDiamonds: 8, NineDiamonds: 9, TenDiamonds: 10, ADiamonds: 11, JDiamonds: 10, QDiamonds: 10, KDiamonds: 10,
-#              OneSpades: 1, TwoSpades: 2, ThreeSpades: 3, FourSpades: 4, FiveSpades: 5, SixSpades: 6, SevenSpades: 7,
-#              EightSpades: 8, NineSpades: 9, TenSpades: 10, ASpades: 11, JSpades: 10, QSpades: 10, KSpades: 10,
-#              OneClubs: 1, TwoClubs: 2, ThreeClubs: 3, FourClubs: 4, FiveClubs: 5, SixClubs: 6, SevenClubs: 7,
-#              EightClubs: 8, NineClubs: 9, TenClubs: 10, AClubs: 11, JClubs: 10, QClubs: 10, KClubs: 10, }
-#   def card_value(value)
-#
-# end
-# end
-class Hand
-  attr_accessor :hand
-  def initialize
-    card = Card.new([], [])
-    puts "#{card.rank[0]}#{card.suit[0]}"
-    puts "#{card.rank[0]}#{card.suit[0]}"
-    def hand_value
-      hand_value = "#{card.rank[0]}#{card.suit[0]}" + "#{card.rank[0]}#{card.suit[0]}"
-      puts hand_value.each_key { |value| puts "#{key} is #{value}" }
-end
-end
-class Card
-  attr_reader :rank, :suit
-  def initialize(rank, suit)
-    @rank = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "A"].shuffle
-    @suit = ["Hearts", "Diamonds", "Clubs", "Spades"].shuffle
-end
- def deck_value
-# @deck_v = { OneHearts: 1, TwoHearts: 2, ThreeHearts: 3, FourHearts: 4, FiveHearts: 5, SixHearts: 6, SevenHearts: 7,
-#             EightHearts: 8, NineHearts: 9, TenHearts: 10, AceHearts: 11, JHearts: 10, QHearts: 10, KHearts: 10,
-#             OneDiamonds: 1, TwoDiamonds: 2, ThreeDiamonds: 3, FourDiamonds: 4, FiveDiamonds: 5, SixDiamonds: 6, SevenDiamonds: 7,
-#             EightDiamonds: 8, NineDiamonds: 9, TenDiamonds: 10, ADiamonds: 11, JDiamonds: 10, QDiamonds: 10, KDiamonds: 10,
-#             OneSpades: 1, TwoSpades: 2, ThreeSpades: 3, FourSpades: 4, FiveSpades: 5, SixSpades: 6, SevenSpades: 7,
-#             EightSpades: 8, NineSpades: 9, TenSpades: 10, ASpades: 11, JSpades: 10, QSpades: 10, KSpades: 10,
-#             OneClubs: 1, TwoClubs: 2, ThreeClubs: 3, FourClubs: 4, FiveClubs: 5, SixClubs: 6, SevenClubs: 7,
-#             EightClubs: 8, NineClubs: 9, TenClubs: 10, AClubs: 11, JClubs: 10, QClubs: 10, KClubs: 10, }
-# Figure out how to attach keys from hand to deck/values?
+  def hand2 # creates dealer hand
+    @d_hand = []
+    2.times do
+      @d_hand << @deck.pop
+    end
+
+  def dhand_total # evaluate total
+    @dfirst_card = @d_hand[0]
+    @dsecond_card = @d_hand[1]
+    puts "Dealers first card is #{@dfirst_card[0]} of #{@dfirst_card[1]}"
+    @dhand_value = @dfirst_card[0] + @dsecond_card[0]
+    # puts "Dealer has a total of #{@dhand_value}" # test if dealer value works
+  end
+
+  def dhit_dstay
+    if @dhand_value >= 17
+      puts "Dealer is staying with #{@dhand_value}"
+    elsif @dhand_value <= 16
+      puts "Dealer will take a hit."
+      @dhand_value += @dfirst_card[0]
+          puts "Dealer got a(n) #{@dfirst_card[0]} of #{@dfirst_card[1]}"
+          puts "Dealer now has #{@dhand_value}"
+    until @dhand_value >= 17 do
+      dhit_dstay
+    end
+    end
   end
 end
-hand = Hand.new
-
-hand
 end
+
+class Win_lose
+ def win
+   if @player_value > @dhand_value
+     puts "You win!"
+   elsif @player_value < @dhand_value
+     puts "You lose!"
+   else
+     puts "Tie!"
+   end
+ end
+ end
+
+
+# class Game# Need to get @hand_value in to here from Player class, Hand method
+# def initialize
+#   @player = Player.new
+#   @dealer = Dealer.new
+# end
+# end
+
+class Start
+  def initialize
+deck = Deck.new.build
+hand = Player.new(deck)
+dhand = Dealer.new(deck)
+result = Win_lose.new
+# game = Game.new
+hand.hand1
+hand.hand_total
+dhand.hand2
+dhand.dhand_total
+hand.hit_or_stay
+dhand.dhit_dstay
+result.win
+# dhand.hand2
+end
+end
+
+Start Game = Start.new
+Start Game
