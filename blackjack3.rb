@@ -108,7 +108,7 @@ class Win_lose
 # end
 
 class Start
-  def initialize
+def initialize
 deck = Deck.new.build
 hand = Player.new(deck)
 dhand = Dealer.new(deck)
