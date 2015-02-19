@@ -3,6 +3,7 @@ class Player
   def initialize (deck_s)
     @deck = deck_s
     @hand_value = []
+    @value = []
   end
 
   def hand1
@@ -15,11 +16,14 @@ class Player
   def hand_total
     @first_card = @p_hand[0]
     @second_card = @p_hand[1]
-    puts "Your first card is #{@first_card[0]} of #{@first_card[1]}"
-    puts "Your second card is #{@second_card[0]} of #{@second_card[1]}"
+    puts "Your first card is #{@p_hand[0][0]} of #{@p_hand[0][1]}"
+    puts "Your second card is #{@p_hand[1][0]} of #{@p_hand[1][1]}"
     @p_hand.each do |token|
-      if token.is_a? Numeric
-        @hand_value << token
+      token.each do |x|
+      if x.is_a? Numeric
+        @value << x
+        @hand_value = @value.reduce(:+)
+      end
       end
     end
     puts "Your hand has a total of #{@hand_value}"

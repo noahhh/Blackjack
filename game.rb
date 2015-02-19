@@ -1,6 +1,7 @@
 require './blackjack3.rb'
 require './player.rb'
 require './dealer.rb'
+require 'pry'
 
 class Win_lose
  def win
