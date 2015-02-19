@@ -1,5 +1,6 @@
 class Player
-  attr_accessor :first_card, :second_card, :p_hand, :hand_value
+  attr_accessor :p_hand, :hand_value
+  
   def initialize (deck_s)
     @deck = deck_s
     @hand_value = []
