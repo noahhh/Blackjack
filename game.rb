@@ -20,7 +20,6 @@ class Start
     hand = Player.new(deck)
     dhand = Dealer.new(deck)
     result = Win_lose.new
-  # game = Game.new
     hand.hand1
     hand.hand_total
     dhand.hand2
@@ -28,7 +27,6 @@ class Start
     hand.hit_or_stay
     dhand.dhit_dstay
     result.win
-  # dhand.hand2
   end
 end
 
