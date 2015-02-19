@@ -32,14 +32,17 @@ class Player
   def hit_or_stay
     puts "Would you like to (h)it or (s)tay?"
     answer = gets.chomp
-    until answer == "s".downcase do
       if answer == "h".downcase
-        @hand_value += @deck.pop
-          puts "You got a(n) #{@first_card[0]} of #{@first_card[1]}"
-          puts "You now have #{@hand_value}"
-      # elsif answer == "s".downcase
-      #    puts "You're staying with #{@hand_value}"
+        @p_hand << @deck.pop
+        @hand_value += @p_hand[-1][0]
+        puts "You got a(n) #{@p_hand[-1][0]} of #{@p_hand[-1][-1]}"
+        puts "You now have #{@hand_value}"
+      elsif answer == "s".downcase
+         puts "You're staying with #{@hand_value}"
       end
+      until answer == "s".downcase
+        hit_or_stay
+        break
     end
   end
 end
