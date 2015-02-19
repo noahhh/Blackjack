@@ -1,6 +1,5 @@
 class Player
   attr_accessor :p_hand, :hand_value
-  
   def initialize (deck_s)
     @deck = deck_s
     @hand_value = []
@@ -24,13 +23,14 @@ class Player
       if x.is_a? Numeric
         @value << x
         @hand_value = @value.reduce(:+)
-      end
+        end
       end
     end
     puts "Your hand has a total of #{@hand_value}"
   end
 
   def hit_or_stay
+    if @hand_value < 21
     puts "Would you like to (h)it or (s)tay?"
     answer = gets.chomp
       if answer == "h".downcase
@@ -43,7 +43,12 @@ class Player
       end
       until answer == "s".downcase
         hit_or_stay
-        break
-    end
+          break
+        end
+      elsif @hand_value == 21
+        puts "Blackjack!"
+      else
+    puts "You busted!"
+  end
   end
 end

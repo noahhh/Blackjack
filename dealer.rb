@@ -35,16 +35,18 @@ class Dealer
   end
 
   def dhit_dstay
-    if @dhand_value >= 17
-      puts "Dealer is staying with #{@dhand_value}"
-    elsif @dhand_value <= 16
-      puts "Dealer will take a hit."
-      @d_hand << @deck.pop
-        @dhand_value += @d_hand[-1][0]
-          puts "Dealer got a(n) #{@d_hand[-1][0]} of #{@d_hand[-1][-1]}"
-          puts "Dealer now has #{@dhand_value}"
     until @dhand_value >= 17 do
-      dhit_dstay
+      if @dhand_value >= 17
+        puts "Dealer is staying with #{@dhand_value}"
+      elsif @dhand_value <= 16
+        puts "Dealer will take a hit."
+        @d_hand << @deck.pop
+        @dhand_value += @d_hand[-1][0]
+        puts "Dealer got a(n) #{@d_hand[-1][0]} of #{@d_hand[-1][-1]}"
+        puts "Dealer now has #{@dhand_value}"
+       else
+        puts "Dealer busted, you win!"
+        exit
       end
     end
   end
